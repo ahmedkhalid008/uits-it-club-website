@@ -1,0 +1,24 @@
+# 🌐 Netlify Configuration File
+# UITS IT Club Web Platform
+
+[build]
+  # Serve static assets directly from the public/ folder
+  publish = "public"
+
+  # No build compilation is necessary since the frontend is built in pure HTML/CSS/JS
+  command = ""
+
+[[redirects]]
+  # Dynamic API Proxy: Route all client-side API calls to the hosted Express server.
+  # This resolves CORS errors automatically!
+  # REPLACE 'https://uits-it-club-api.onrender.com' with your actual production backend URL (e.g. Render, Railway, Fly.io)
+  from = "/api/*"
+  to = "https://uits-it-club-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  # SPA Route Fallback: Allow client-side routing to fallback gracefully to index.html
+  from = "/*"
+  to = "/index.html"
+  status = 200
