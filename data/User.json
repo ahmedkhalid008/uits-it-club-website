@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "admin_user_id_2026",
+    "name": "Admin User",
+    "email": "04324205191008@uits.edu.bd",
+    "password": "$2a$10$T.Hweh3EO0xIEWNq1T8xleG1v16haYe3XJEi2IiMbBsuT3H6047QS",
+    "role": "Admin",
+    "createdAt": "2026-05-20T20:52:45.781Z"
+  },
+  {
+    "name": "John Test Doe",
+    "email": "test_user_1779311129061@example.com",
+    "password": "$2a$10$c.xsVyd97.c.EelCp9Av..qMNiSdAG440JpHwZq73ZFx8Nqn0nQfu",
+    "createdAt": "2026-05-20T21:05:29.061Z",
+    "_id": "id_hazkfjr3f"
+  },
+  {
+    "name": "John Test Doe",
+    "email": "test_user_1779311142772@example.com",
+    "password": "$2a$10$3XkrWRjZL1nlKzWLZTRde.TQBC/OQGS/MXIJT1DLmt4RvWm2MXFka",
+    "createdAt": "2026-05-20T21:05:42.772Z",
+    "_id": "id_51pzsp7r2"
+  },
+  {
+    "name": "azhar",
+    "email": "az@az.com",
+    "password": "$2a$10$KWD2nR4XQHHbP3l0OkQpYeTOTOpazraxbKS6caEDl3l53fwL9kw8i",
+    "role": "General Member",
+    "createdAt": "2026-05-20T21:08:06.662Z",
+    "_id": "id_ak1kq78s5"
+  }
+]

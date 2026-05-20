@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | UITS IT CLUB</title>
+    <link rel="icon" type="image/png" href="images/club.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background-color: var(--dark); padding-top: 0; }
+        
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            background: rgba(6, 8, 22, 0.95);
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .admin-nav button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            text-align: left;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-nav button:hover {
+            background: rgba(212,175,55,0.05);
+            color: var(--text);
+        }
+
+        .admin-nav button.active {
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+
+        /* Main Content */
+        .admin-content {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .admin-header h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        /* Data Tables */
+        .table-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: none; /* Hide all by default */
+        }
+        .table-container.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            font-size: 0.95rem;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+        .status-approved { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .status-rejected { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        .action-btn:hover { background: var(--surface-light); }
+        .action-approve { color: #10b981; border-color: rgba(16, 185, 129, 0.3); }
+        .action-reject { color: #ef4444; border-color: rgba(239, 68, 68, 0.3); }
+        .action-delete { color: #ef4444; border-color: rgba(239, 68, 68, 0.3); }
+        
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <a href="index.html" class="admin-brand">
+                <span class="logo-icon">⬡</span>
+                IT CLUB ADMIN
+            </a>
+            <div class="admin-nav">
+                <button class="active" data-target="roadmaps">🛣️ Roadmaps</button>
+                <button data-target="members">👥 Members</button>
+                <button data-target="messages">✉️ Messages</button>
+                <button data-target="events">📅 Events</button>
+            </div>
+            <div style="margin-top: auto;">
+                <button class="logout-btn" id="logout-btn" style="width: 100%;">Sign Out</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1 id="view-title">Manage Roadmaps</h1>
+            </div>
+
+            <!-- Roadmaps Table -->
+            <div class="table-container active" id="view-roadmaps">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title / Link</th>
+                            <th>Category</th>
+                            <th>Submitted By</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roadmaps-body">
+                        <tr><td colspan="5" style="text-align: center;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Members Table -->
+            <div class="table-container" id="view-members">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-body">
+                        <tr><td colspan="5" style="text-align: center;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Messages Table -->
+            <div class="table-container" id="view-messages">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="messages-body">
+                        <tr><td colspan="4" style="text-align: center;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Events Table -->
+            <div class="table-container" id="view-events">
+                <div style="padding: 20px; border-bottom: 1px solid var(--border);">
+                    <form id="add-event-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; max-width: 600px;">
+                        <div style="grid-column: span 2;">
+                            <input type="text" id="ev-title" placeholder="Event Title" required style="width: 100%; padding:8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:white;">
+                        </div>
+                        <div>
+                            <input type="date" id="ev-date" required style="width: 100%; padding:8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:white; color-scheme: dark;">
+                        </div>
+                        <div>
+                            <input type="text" id="ev-category" placeholder="Category (e.g. Workshop, Seminar)" required style="width: 100%; padding:8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:white;">
+                        </div>
+                        <div>
+                            <input type="text" id="ev-location" placeholder="Location" required style="width: 100%; padding:8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:white;">
+                        </div>
+                        <div>
+                            <input type="text" id="ev-image" placeholder="Image URL (Optional)" style="width: 100%; padding:8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:white;">
+                        </div>
+                        <div style="grid-column: span 2;">
+                            <textarea id="ev-description" placeholder="Event Description" required style="width: 100%; padding:8px; border-radius:6px; border:1px solid var(--border); background:transparent; color:white; height: 80px; resize: vertical; font-family: inherit;"></textarea>
+                        </div>
+                        <div style="grid-column: span 2; text-align: right;">
+                            <button type="submit" class="action-btn" style="padding: 9px 20px; border-color: var(--gold); color: var(--gold); background: transparent;">Create Event</button>
+                        </div>
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-body">
+                        <tr><td colspan="4" style="text-align: center;">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const token = localStorage.getItem('uits-token');
+        
+        // Auth Check
+        if (!token) {
+            window.location.href = 'index.html';
+        } else {
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                if (payload.role !== 'Admin') {
+                    window.location.href = 'index.html';
+                }
+            } catch (e) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('uits-token');
+            window.location.href = 'index.html';
+        });
+
+        // Tab Switching
+        const tabs = document.querySelectorAll('.admin-nav button');
+        const views = document.querySelectorAll('.table-container');
+        const viewTitle = document.getElementById('view-title');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                views.forEach(v => v.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const target = tab.getAttribute('data-target');
+                document.getElementById(`view-${target}`).classList.add('active');
+                viewTitle.textContent = `Manage ${target.charAt(0).toUpperCase() + target.slice(1)}`;
+
+                // Load Data
+                loadData(target);
+            });
+        });
+
+        // Fetch wrapper
+        async function fetchAdmin(url, options = {}) {
+            const res = await fetch(url, {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!res.ok) {
+                if (res.status === 401 || res.status === 403) {
+                    alert('Session expired or access denied.');
+                    window.location.href = 'index.html';
+                }
+                throw new Error('API Error');
+            }
+            return res.json();
+        }
+
+        // Data Loaders
+        async function loadData(target) {
+            try {
+                if (target === 'roadmaps') {
+                    const data = await fetchAdmin('/api/roadmaps/admin');
+                    const tbody = document.getElementById('roadmaps-body');
+                    tbody.innerHTML = data.map(r => `
+                        <tr>
+                            <td>
+                                <strong>${r.title}</strong><br>
+                                <a href="${r.link}" target="_blank" style="color:var(--gold);font-size:0.8rem;">${r.link}</a>
+                            </td>
+                            <td style="text-transform: capitalize;">${r.category}</td>
+                            <td>${r.submittedBy ? r.submittedBy.name : 'Unknown'}<br><small style="color:var(--text-muted);">${r.submittedBy ? r.submittedBy.email : ''}</small></td>
+                            <td><span class="status-badge status-${r.status}">${r.status}</span></td>
+                            <td>
+                                ${r.status === 'pending' ? `
+                                    <button class="action-btn action-approve" onclick="updateRoadmap('${r._id}', 'approved')">Approve</button>
+                                    <button class="action-btn action-reject" onclick="updateRoadmap('${r._id}', 'rejected')">Reject</button>
+                                ` : ''}
+                                ${r.status === 'approved' ? `<button class="action-btn action-reject" onclick="updateRoadmap('${r._id}', 'rejected')">Revoke</button>` : ''}
+                                ${r.status === 'rejected' ? `<button class="action-btn action-approve" onclick="updateRoadmap('${r._id}', 'approved')">Approve</button>` : ''}
+                            </td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="5" style="text-align: center;">No roadmaps found.</td></tr>';
+                }
+
+                if (target === 'members') {
+                    const data = await fetchAdmin('/api/members');
+                    const tbody = document.getElementById('members-body');
+                    tbody.innerHTML = data.map(m => `
+                        <tr>
+                            <td>${m.name}</td>
+                            <td>${m.email}</td>
+                            <td>${m.role}</td>
+                            <td>${new Date(m.createdAt).toLocaleDateString()}</td>
+                            <td>
+                                <button class="action-btn action-delete" onclick="deleteMember('${m._id}')">Remove</button>
+                            </td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="5" style="text-align: center;">No members found.</td></tr>';
+                }
+
+                if (target === 'messages') {
+                    const data = await fetchAdmin('/api/contact/messages');
+                    const tbody = document.getElementById('messages-body');
+                    tbody.innerHTML = data.map(m => `
+                        <tr>
+                            <td>${m.name}</td>
+                            <td><a href="mailto:${m.email}" style="color:var(--gold);">${m.email}</a></td>
+                            <td style="max-width: 300px;">${m.message}</td>
+                            <td>${new Date(m.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="4" style="text-align: center;">No messages found.</td></tr>';
+                }
+
+                if (target === 'events') {
+                    const data = await fetchAdmin('/api/events');
+                    const tbody = document.getElementById('events-body');
+                    tbody.innerHTML = data.map(e => `
+                        <tr>
+                            <td>${e.title}</td>
+                            <td>${new Date(e.date).toLocaleDateString()}</td>
+                            <td>${e.category || 'General'}</td>
+                            <td>
+                                <button class="action-btn action-delete" onclick="deleteEvent('${e._id}')">Delete</button>
+                            </td>
+                        </tr>
+                    `).join('') || '<tr><td colspan="4" style="text-align: center;">No events found.</td></tr>';
+                }
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById(`${target}-body`).innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ff6b6b;">Error loading data. Check console.</td></tr>`;
+            }
+        }
+
+        // Actions
+        window.updateRoadmap = async (id, status) => {
+            if (!confirm(`Are you sure you want to mark this as ${status}?`)) return;
+            try {
+                await fetchAdmin(`/api/roadmaps/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) });
+                loadData('roadmaps');
+            } catch (e) { alert('Failed to update status.'); }
+        };
+
+        window.deleteMember = async (id) => {
+            if (!confirm(`Are you sure you want to permanently remove this member?`)) return;
+            try {
+                await fetchAdmin(`/api/members/${id}`, { method: 'DELETE' });
+                loadData('members');
+            } catch (e) { alert('Failed to delete member.'); }
+        };
+
+        window.deleteEvent = async (id) => {
+            if (!confirm(`Are you sure you want to delete this event?`)) return;
+            try {
+                await fetchAdmin(`/api/events/${id}`, { method: 'DELETE' });
+                loadData('events');
+            } catch (e) { alert('Failed to delete event.'); }
+        };
+
+        document.getElementById('add-event-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('ev-title').value;
+            const date = document.getElementById('ev-date').value;
+            const category = document.getElementById('ev-category').value;
+            const location = document.getElementById('ev-location').value;
+            const image = document.getElementById('ev-image').value;
+            const description = document.getElementById('ev-description').value;
+            
+            try {
+                await fetchAdmin('/api/events', {
+                    method: 'POST',
+                    body: JSON.stringify({ title, date, category, location, image, description })
+                });
+                e.target.reset();
+                loadData('events');
+            } catch (err) {
+                alert('Failed to create event.');
+            }
+        });
+
+        // Initial Load
+        loadData('roadmaps');
+
+    </script>
+</body>
+</html>

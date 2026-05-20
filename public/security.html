@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethical Hacking | UITS IT CLUB</title>
+    <link rel="icon" type="image/png" href="images/club.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Ambient background particles -->
+    <div class="ambient-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-icon">⬡</span>
+                <span>UITS IT CLUB</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#team">Panel 2026</a>
+                <a href="index.html#alumni">Alumni</a>
+                <a href="index.html#proggram">Programs</a>
+                <a href="index.html#activities">Activities</a>
+                <a href="index.html#resources" class="active">Resources</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <button id="auth-trigger" class="btn-ghost-sm">Sign In</button>
+                <button id="dark-mode-toggle" class="mode-btn" aria-label="Toggle dark mode">
+                    <span class="mode-icon">☀️</span>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" style="padding-top: 100px; min-height: 80vh;">
+        <div class="container">
+            <a href="index.html#resources" style="color: var(--gold); text-decoration: none; margin-bottom: 20px; display: inline-block;">← Back to Resources</a>
+            
+            <div class="section-label">Security</div>
+            <h1 class="section-heading" style="margin-bottom: 40px;">Ethical Hacking Roadmaps</h1>
+            
+            <!-- Existing Roadmaps Grid -->
+            <div class="activities-grid" id="roadmap-list">
+                <div class="activity-card">
+                    <div class="activity-icon">🔐</div>
+                    <h3>Cyber Security Fundamentals</h3>
+                    <p>A comprehensive guide starting from networking basics to vulnerability assessment.</p>
+                    <div class="activity-footer">
+                        <a href="https://roadmap.sh/cyber-security" target="_blank" class="member-email" style="text-decoration: underline;">Open Roadmap ↗</a>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon">🛡️</div>
+                    <h3>CTF Starter Guide</h3>
+                    <p>Everything you need to know to start playing Capture The Flag competitions.</p>
+                    <div class="activity-footer">
+                        <a href="#" target="_blank" class="member-email" style="text-decoration: underline;">Open Roadmap ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border);">
+                <h2 style="font-family: 'Syne', sans-serif; font-size: 2rem; margin-bottom: 10px;">Upload a Roadmap</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Have a great resource to share with the club? Submit the link below.</p>
+                
+                <!-- Upload Form -->
+                <form id="roadmap-form" class="contact-form" style="max-width: 600px; margin: 0;">
+                    <input type="hidden" id="category" name="category" value="security">
+                    <div class="form-group">
+                        <label for="title">Roadmap Title</label>
+                        <input type="text" id="title" name="title" placeholder="e.g. Reverse Engineering 101" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="link">Roadmap Link (URL)</label>
+                        <input type="url" id="link" name="link" placeholder="https://..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Short Description</label>
+                        <textarea id="description" name="description" placeholder="What will students learn from this roadmap?" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" id="upload-btn">
+                        <span>Submit Resource</span>
+                    </button>
+                    <p id="auth-warning" style="display: none; color: #ff6b6b; margin-top: 10px; font-size: 0.9rem;">You must be logged in to upload a roadmap.</p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo-icon">⬡</span>
+                <div>
+                    <strong>UITS IT CLUB</strong>
+                    <small>University of Information Technology & Sciences</small>
+                </div>
+            </div>
+            <nav class="footer-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#team">Team</a>
+                <a href="index.html#alumni">Alumni</a>
+                <a href="index.html#proggram">Programs</a>
+                <a href="index.html#activities">Activities</a>
+                <a href="index.html#resources">Resources</a>
+                <a href="index.html#contact">Contact</a>
+            </nav>
+            <p class="footer-copy">© 2026 UITS IT CLUB. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal (Reused) -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">×</button>
+            <div class="auth-header">
+                <div class="auth-toggle">
+                    <button class="toggle-btn active" data-target="login-form">Login</button>
+                    <button class="toggle-btn" data-target="register-form">Register</button>
+                    <div class="toggle-slider"></div>
+                </div>
+            </div>
+            <div class="auth-forms">
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <h2 class="auth-title">Welcome Back</h2>
+                    <p class="auth-subtitle">Login to your IT Club account</p>
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Sign In</button>
+                </form>
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form">
+                    <h2 class="auth-title">Create Account</h2>
+                    <p class="auth-subtitle">Join the UITS IT Club family</p>
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Registration Type</label>
+                        <div class="reg-type-selector">
+                            <label class="type-card">
+                                <input type="radio" name="reg-type" value="student" checked>
+                                <div class="type-content"><span class="type-icon">🎓</span><span class="type-label">Student</span></div>
+                            </label>
+                            <label class="type-card">
+                                <input type="radio" name="reg-type" value="alumni">
+                                <div class="type-content"><span class="type-icon">🏛️</span><span class="type-label">Alumni</span></div>
+                            </label>
+                            <label class="type-card">
+                                <input type="radio" name="reg-type" value="faculty">
+                                <div class="type-content"><span class="type-icon">👨‍🏫</span><span class="type-label">Faculty</span></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Join Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Custom roadmap upload logic
+        document.getElementById('roadmap-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const token = localStorage.getItem('uits-token');
+            if (!token) {
+                document.getElementById('auth-warning').style.display = 'block';
+                document.getElementById('auth-modal').classList.add('open');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            const title = document.getElementById('title').value;
+            const link = document.getElementById('link').value;
+            const description = document.getElementById('description').value;
+            const category = document.getElementById('category').value;
+            
+            const btn = document.getElementById('upload-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span>Submitting...</span>';
+
+            try {
+                const res = await fetch('/api/roadmaps', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title, link, description, category })
+                });
+
+                if (res.ok) {
+                    showToast('✅ Roadmap submitted successfully!', 'success');
+                    e.target.reset();
+                } else {
+                    const data = await res.json();
+                    showToast(`⚠️ ${data.error || 'Submission failed'}`, 'error');
+                }
+            } catch (err) {
+                showToast('⚠️ Network error', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Submit Resource</span>';
+            }
+        });
+    </script>
+</body>
+</html>

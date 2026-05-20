@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Late Event",
+    "description": "This event happens later",
+    "date": "2026-12-31T00:00:00.000Z",
+    "location": "Auditorium",
+    "category": "Workshop",
+    "createdBy": "id_hazkfjr3f",
+    "createdAt": "2026-05-20T21:05:29.306Z",
+    "_id": "id_7gp71pcds"
+  },
+  {
+    "title": "Early Event",
+    "description": "This event happens earlier",
+    "date": "2026-06-01T00:00:00.000Z",
+    "location": "Lab 1",
+    "category": "Seminar",
+    "createdBy": "id_hazkfjr3f",
+    "createdAt": "2026-05-20T21:05:29.306Z",
+    "_id": "id_hppcl9qag"
+  },
+  {
+    "title": "Late Event",
+    "description": "This event happens later",
+    "date": "2026-12-31T00:00:00.000Z",
+    "location": "Auditorium",
+    "category": "Workshop",
+    "createdBy": "id_51pzsp7r2",
+    "createdAt": "2026-05-20T21:05:43.068Z",
+    "_id": "id_8bbpjvc96"
+  },
+  {
+    "title": "Early Event",
+    "description": "This event happens earlier",
+    "date": "2026-06-01T00:00:00.000Z",
+    "location": "Lab 1",
+    "category": "Seminar",
+    "createdBy": "id_51pzsp7r2",
+    "createdAt": "2026-05-20T21:05:43.068Z",
+    "_id": "id_6qfxtttm1"
+  }
+]
