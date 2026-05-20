@@ -25,7 +25,7 @@ uits-it-club-website/
 
 ## 💾 Extending Database Models
 
-When creating a new database model, you must use our custom Mongoose wrapper [server/db.js](file:///e:/club%20update%2020%20april%202026/server/db.js) rather than the standard Mongoose package directly. This guarantees 100% database fallback functionality!
+When creating a new database model, you must use our custom Mongoose wrapper [db.js](../server/db.js) rather than the standard Mongoose package directly. This guarantees 100% database fallback functionality!
 
 ### How to Create a New Model
 
@@ -88,7 +88,7 @@ module.exports = mongoose.model('Project', projectSchema);
 
 ### Frontend (HTML, CSS, JS)
 *   **Vanilla First**: Do not add bulky UI frameworks (e.g., Tailwind, React, Bootstrap) unless explicitly discussed. Modern vanilla CSS is powerful enough for our custom design system.
-*   **Design System Integrity**: When adding elements, always consume the existing CSS variables in [public/style.css](file:///e:/club%20update%2020%20april%202026/public/style.css) (e.g., `var(--primary)`, `var(--card-bg)`, etc.).
+*   **Design System Integrity**: When adding elements, always consume the existing CSS variables in [style.css](../public/style.css) (e.g., `var(--primary)`, `var(--card-bg)`, etc.).
 *   **Responsiveness**: Design mobile-first. Use modern CSS Grid and Flexbox layouts.
 *   **Micro-interactions**: Ensure links and buttons have active transitions and hover scale states.
 
@@ -104,7 +104,7 @@ node test_db.js
 
 ### Extending Integration Tests
 If you add a new model or API route:
-1.  Open [test_db.js](file:///e:/club%20update%2020%20april%202026/test_db.js).
+1.  Open [test_db.js](../test_db.js).
 2.  Add a test block to verify that:
     *   The model can be instantiated and saved locally.
     *   Querying matches database expectations.

@@ -23,12 +23,12 @@ graph TD
 
 ## 🔄 Dual-Database Fallback Engine
 
-A primary highlight of this codebase is its **Dual-Database Architecture**, coded inside [server/db.js](file:///e:/club%20update%2020%20april%202026/server/db.js). It guarantees **100% out-of-the-box local execution** without needing a local MongoDB daemon or cloud database setup.
+A primary highlight of this codebase is its **Dual-Database Architecture**, coded inside [db.js](../server/db.js). It guarantees **100% out-of-the-box local execution** without needing a local MongoDB daemon or cloud database setup.
 
 ### Connection & Transition Flow
 
 At server startup:
-1. The entry point [server.js](file:///e:/club%20update%2020%20april%202026/server.js) triggers `mongoose.connect(URI)`.
+1. The entry point [server.js](../server.js) triggers `mongoose.connect(URI)`.
 2. The wrapper tries to establish a Mongoose connection to the remote MongoDB Atlas cluster.
 3. It sets a strict **3-second timeout** (`serverSelectionTimeoutMS: 3000`).
 4. **If connection succeeds**: The application operates in Standard MongoDB mode using MongoDB's remote servers.
@@ -99,7 +99,7 @@ sequenceDiagram
 1.  **JWT Signing & Verification**:
     *   Signed during registration and login via the keys loaded from `JWT_SECRET`.
     *   Stores `id` and `role` to limit round-trips to the database during authorization.
-2.  **Authentication Middleware** ([server/middleware/auth.js](file:///e:/club%20update%2020%20april%202026/server/middleware/auth.js)):
+2.  **Authentication Middleware** ([auth.js](../server/middleware/auth.js)):
     *   **`auth`**: Extracts the `Bearer` token from the `Authorization` header, verifies its integrity, decodes the claims, and attaches the payload to `req.user`.
     *   **`adminOnly`**: Verifies `req.user.role === 'Admin'`. Denies access with a HTTP `403 Forbidden` if the rule is violated.
 3.  **Default Role Assignment**:
@@ -248,7 +248,7 @@ graph TD
 
 ## 🎨 UI/UX Design System
 
-The application boasts a custom **Cybersecurity / Cyberpunk Aesthetic** built entirely using clean, premium vanilla CSS in [public/style.css](file:///e:/club%20update%2020%20april%202026/public/style.css).
+The application boasts a custom **Cybersecurity / Cyberpunk Aesthetic** built entirely using clean, premium vanilla CSS in [style.css](../public/style.css).
 
 ### Design Tokens & Variables
 
