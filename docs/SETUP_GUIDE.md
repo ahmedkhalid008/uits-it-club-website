@@ -18,7 +18,7 @@ Before starting, ensure you have the following installed on your machine:
 ### Step 1: Clone the Repository
 Clone this repository to your local system and navigate into the project directory:
 ```bash
-git clone https://github.com/your-org/uits-it-club-website.git
+git clone https://github.com/ahmedkhalid008/uits-it-club-website.git
 cd uits-it-club-website
 ```
 
