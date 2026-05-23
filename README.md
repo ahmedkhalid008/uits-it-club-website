@@ -120,7 +120,7 @@ Once active, navigate to: **`http://localhost:5000`**
 
 When running in fallback mode, the database wrapper seeds a default Admin account:
 *   **Email**: `04324205191008@uits.edu.bd`
-*   **Password**: `password123`
+*   **Password**: `password`
 
 ---
 
